@@ -6,34 +6,42 @@ const router = express.Router()
 
 //Routes
 
-// GET METHOD
+//                                                             GET METHOD
 
+//PRODUCTS
 router.get('/get-product', getAllProductController)
 
+// SINGLE PRODUCT
 router.get('/single-product/:slug',singleProductController)
 
+//PRODUCT PHOTO
 router.get('/product-photo/:pid',productPhotoController)
 
+//PRODUCT COUNT
 router.get('/product-count', productCountController)
 
+//PRODUCT LIST
 router.get('/product-list/:page', productListController)
 
-// POST METHOD
-
-router.post('/create-product', requireSignIn, isAdmin , formidable(), createProductController)
-
-router.post('/product-filters', productFilterController)
-
-// PUT METHOD
-
-router.put('/update-product/:pid', requireSignIn, isAdmin,formidable(),updateProductController)
-
-// DELETE METHOD
-
-router.delete('/delete-product/:pid', requireSignIn, isAdmin,deleteProductController)
-
+// SEARCH PRODUCT
 router.get('/search-product/:keyword', searchProductController)
 
+//                                                             POST METHOD
 
+// CREATE PRODUCT
+router.post('/create-product', requireSignIn, isAdmin , formidable(), createProductController)
+
+// PRODUCT FILTERS
+router.post('/product-filters', productFilterController)
+
+//                                                             PUT METHOD
+
+// UPDATE PRODUCT
+router.put('/update-product/:pid', requireSignIn, isAdmin,formidable(),updateProductController)
+
+//                                                             DELETE METHOD
+
+//DELETE PRODUCT
+router.delete('/delete-product/:pid', requireSignIn, isAdmin,deleteProductController)
 
 export default router;
