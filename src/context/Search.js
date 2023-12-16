@@ -7,10 +7,7 @@ const SearchProvider = ({ children }) => {
          keyword:'',
           results:[]
          })
-useEffect(()=>{
-     const data = localStorage.getItem('searchProducts')
-     console.log(data)
-},[])
+
     return (
         <SearchContext.Provider value={[search,setSearch]}>
             {children}

@@ -20,6 +20,7 @@ import Profile from './pages/user/Profile.js';
 import Orders from './pages/user/Orders.js';
 import Products from './pages/Admin/Products.jsx';
 import UpdateProduct from './pages/Admin/UpdateProduct.jsx';
+import Search from './pages/Search.js';
 
 function App() {
 
@@ -30,8 +31,8 @@ function App() {
       <Route path='/dashboard' element={<PrivateRoute />} >
 
         <Route path='user' element={<Dashboard />} />
-        <Route path='user/profile' element={<Profile/>}/>
-        <Route path='user/orders' element={<Orders/>}/>
+        <Route path='user/profile' element={<Profile />} />
+        <Route path='user/orders' element={<Orders />} />
       </Route>
       <Route path='/dashboard' element={<AdminRoute />} >
         <Route path='admin' element={<AdminDashboard />} />
@@ -41,6 +42,7 @@ function App() {
         <Route path='admin/product' element={<Products />} />
         <Route path='admin/users' element={<Users />} />
       </Route>
+      <Route path='/Search' element={<Search />} />
       <Route path='/about' element={<About />} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/Privacy-Policy' element={<PrivacyPolicy />} />
@@ -49,7 +51,7 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/forgot-password' element={<ForgotPassword />} />
-      <Route path='*' element={<PageNotFound/>}/>
+      <Route path='*' element={<PageNotFound />} />
     </Routes>
 
 

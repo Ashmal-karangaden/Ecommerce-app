@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/auth'
 import { toast } from 'react-hot-toast'
+import SearchInput from '../Form/SearchInput.js';
+
 function Header() {
   const [auth, setAuth] = useAuth()
   const navigate = useNavigate()
@@ -28,14 +30,16 @@ function Header() {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+           
             <Link to='/'
               className='navbar-brand'
             >
               <span role='img'>🛒</span>  Ecommerce App
             </Link>
-            
+          
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                <SearchInput />
               <li className="nav-item">
                 <NavLink
                   to='/'
@@ -84,7 +88,7 @@ function Header() {
                       >
                         <li>
                           <NavLink
-                            to ={`/dashboard/${auth.user?.role === 1 ? 'admin': 'user'}`}
+                            to={`/dashboard/${auth.user?.role === 1 ? 'admin' : 'user'}`}
                             className="dropdown-item">
                             Dashboard
                           </NavLink>

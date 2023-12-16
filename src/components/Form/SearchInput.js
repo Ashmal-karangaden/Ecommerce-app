@@ -2,11 +2,13 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import {useNavigate } from 'react-router-dom'
+import { useSearch } from '../../context/Search'
 
 function SearchInput() {
-    const [values, setValues] = useState('')
+    const [values, setValues] = useSearch()
     const navigate = useNavigate()
     const handleSubmit = async (e) => {
+        e.preventDefault()
         try {
             const {data} = await axios.get(`/api/v1/product/search-product/${values.keyword}`)
             setValues({...values, results: data})

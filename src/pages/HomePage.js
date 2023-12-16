@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Routes/Prices.js';
-import SearchInput from '../components/Form/SearchInput.js';
+
 function HomePage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
@@ -134,7 +134,7 @@ function HomePage() {
           </div>
         </div>
         <div className="col-md-9">
-            <SearchInput/>
+           
           <h1 className="text-center">All Product</h1>
           <div className="d-flex flex-wrap">
             {products?.map( (p) => (
