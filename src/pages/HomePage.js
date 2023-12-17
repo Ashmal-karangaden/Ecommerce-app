@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout/Layout.js'
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Routes/Prices.js';
 
@@ -14,6 +14,7 @@ function HomePage() {
   const [total, setTotal] = useState('')
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const getTotal = async (e) => {
     try {
@@ -106,7 +107,7 @@ function HomePage() {
   }
   return (
     <Layout title={'All product - Best offers'}>
-      <div className="row mt-3">
+      <div className="row mt-3" style={{marginRight: '0'}}>
         <div className="col-md-2 border-end border-dark">
           <h6 className="text-center">Filter By Category</h6>
           <div className="d-flex flex-column m-3">
@@ -138,19 +139,16 @@ function HomePage() {
           <h1 className="text-center">All Product</h1>
           <div className="d-flex flex-wrap">
             {products?.map( (p) => (
-              <Link key={p._id} className='product-link' to={`/product/${p.slug}`}
-              >
-                <div className="card m-2" style={{ width: '18rem' }} key={p._id}>
-                  <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" height={'200px'} alt={p.name} />
+                <div className="card m-3" style={{ width: '18rem'}} key={p._id}>
+                  <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" height={'250px'} alt={p.name} />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">{p.description.substring(0, 35)}...</p>
+                    <p className="card-text">{p.description.substring(0, 65)}...</p>
                     <p className="card-text"> $ {p.price}</p>
-                    <button className='btn btn-primary me-2' >More details</button>
+                    <button className='btn btn-primary me-2' onClick={()=> navigate(`product/${p.slug}`)}>More details</button>
                     <button className=' btn btn-secondary ' >ADD TO CART</button>
                   </div>
                 </div>
-              </Link>
             ))}
           </div>
           <div className='m-2 p-3'>

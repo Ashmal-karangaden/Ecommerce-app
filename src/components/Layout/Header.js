@@ -3,10 +3,13 @@ import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/auth'
 import { toast } from 'react-hot-toast'
 import SearchInput from '../Form/SearchInput.js';
+import useCategory from '../../hooks/useCategory';
 
 function Header() {
   const [auth, setAuth] = useAuth()
   const navigate = useNavigate()
+  const categories = useCategory()
+  console.log(categories)
   const handleLogout = () => {
     setAuth({
       ...auth, user: null, token: ''
@@ -30,16 +33,18 @@ function Header() {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-           
-            <Link to='/'
-              className='navbar-brand'
-            >
-              <span role='img'>🛒</span>  Ecommerce App
-            </Link>
-          
+
+          <Link to='/'
+            className='navbar-brand'
+          >
+            <span role='img'>🛒</span>  Ecommerce App
+          </Link>
+
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ms-auto mb-2 me-2 mb-lg-0">
+              <li className="nav-item me-4" >
                 <SearchInput />
+              </li>
               <li className="nav-item">
                 <NavLink
                   to='/'
@@ -48,14 +53,31 @@ function Header() {
                 >Home
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  to='/category'
-                  className="nav-link"
-
-                >Category
-                </NavLink>
-              </li>
+              <div class="dropdown">
+                <div className="dropdown">
+                  <button
+                    className="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Categories
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                  >
+                    {categories.map((c) => (
+                      <li>
+                        <NavLink
+                          className="dropdown-item">
+                          {c.name}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
               {
                 !auth.user ? (
                   <>

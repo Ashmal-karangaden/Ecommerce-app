@@ -134,3 +134,22 @@ font-family: 'Poppins', sans-serif; */
   text-decoration: none;
   color: black;
 }
+.scroll{
+ overflow-y: scroll;
+}
+.hover-border:hover{
+  border: 1px  rgb(176, 176, 176) solid;
+  border-radius: 30px;
+}
+h1{
+  font-weight: 500;
+  font-family: 'Courier New', Courier, monospace;
+}
+h6{
+  font-weight: 550;
+  font-family:  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+
+}
+.card-title{
+  font-size: 16px;
+}
