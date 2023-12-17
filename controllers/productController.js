@@ -227,7 +227,31 @@ export const searchProductController = async(req,res)=>{
             ]
         }).select('-photo')
         res.json(results)
-    }catch{
+    }catch(error){
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            error,
+            message:"error in Searching Product"
+        })
+    }
+}
+//Similair Product
+
+export const relatedProductController = async(req,res)=>{
+    try{
+        const {pid,cid} = req.params
+        const products = await productModel.find({
+            category:cid,
+            _id:{$ne:pid}
+        }).select('-photo').limit(4).populate('category')
+        res.status(200).send({
+            success:true,
+            message:"success",
+            products
+        })
+
+    }catch(error){
         console.log(error)
         res.status(500).send({
             success:false,
