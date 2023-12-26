@@ -3,7 +3,7 @@ import { isAdmin, requireSignIn } from '../middlewares/authMiddleware.js';
 import { createProductController, deleteProductController, getAllProductController, 
        productCountController, productFilterController, productListController,
        productPhotoController, searchProductController, singleProductController,
-       updateProductController ,relatedProductController} from '../controllers/productController.js';
+       updateProductController ,relatedProductController, productCategoryController} from '../controllers/productController.js';
 import formidable from 'express-formidable'
 const router = express.Router()
 
@@ -31,6 +31,8 @@ router.get('/search-product/:keyword', searchProductController)
 
 // Similair PRODUCTS
 router.get('/related-product/:pid/:cid', relatedProductController)
+// Category Wise Products
+router.get('/product-category/:slug',productCategoryController)
 
 //                                                             POST METHOD
 
