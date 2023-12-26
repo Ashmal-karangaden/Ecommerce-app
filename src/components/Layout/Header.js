@@ -4,8 +4,10 @@ import { useAuth } from '../../context/auth'
 import { toast } from 'react-hot-toast'
 import SearchInput from '../Form/SearchInput.js';
 import useCategory from '../../hooks/useCategory';
+import { useCart } from '../../context/cart.js';
 
 function Header() {
+  const [cart,setCart] = useCart()
   const [auth, setAuth] = useAuth()
   const navigate = useNavigate()
   const categories = useCategory()
@@ -53,31 +55,33 @@ function Header() {
                 >Home
                 </NavLink>
               </li>
-              <div class="dropdown">
-                <div className="dropdown">
-                  <button
-                    className="btn dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+              <li className="nav-item dropdown">
+                <Link 
+                className="nav-link dropdown-toggle"
+                  to={'/categories'}          
+                  data-bs-toggle="dropdown"
                   >
                     Categories
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                  >
-                    {categories.map((c) => (
-                      <li>
-                        <NavLink
-                          className="dropdown-item">
-                          {c.name}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+                </Link>
+                <ul className="dropdown-menu">
+                <li>
+                    <Link 
+                    className="dropdown-item"
+                    to={`/categories`}
+                    >All Categories
+                    </Link>
+                    </li>
+                  {categories?.map((c) => (
+                    <li>
+                    <Link 
+                    className="dropdown-item"
+                    to={`/category/${c.slug}`}
+                    >{c.name}
+                    </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
               {
                 !auth.user ? (
                   <>
@@ -128,7 +132,7 @@ function Header() {
                     <li
                       className="nav-item">
                       <NavLink to='/Cart' className="nav-link">
-                        Cart (0)
+                        Cart ({cart?.length})
                       </NavLink>
                     </li>
                   </>)

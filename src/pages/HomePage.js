@@ -5,8 +5,10 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Routes/Prices.js';
+import { useCart } from '../context/cart.js';
 
 function HomePage() {
+  const [cart, setCart] = useCart()
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [checked, setChecked] = useState([])
@@ -63,13 +65,13 @@ function HomePage() {
   }
   useEffect(() => {
     if (page === 1) return;
-     loadMore()
-  },[page])
+    loadMore()
+  }, [page])
 
   useEffect(() => {
     getAllCategory();
   }, [])
-  useEffect(()=>{
+  useEffect(() => {
     getTotal()
   }, [])
 
@@ -107,14 +109,14 @@ function HomePage() {
   }
   return (
     <Layout title={'All product - Best offers'}>
-      <div className="row mt-3" style={{marginRight: '0'}}>
+      <div className="row mt-3" style={{ marginRight: '0' }}>
         <div className="col-md-2 border-end border-dark">
           <h6 className="text-center">Filter By Category</h6>
           <div className="d-flex flex-column m-3">
             {categories?.map((c) => (
               <Checkbox key={c._id}
-              onChange={(e) => handlFilter(e.target.checked, c._id)}
-              name='checkBox'
+                onChange={(e) => handlFilter(e.target.checked, c._id)}
+                name='checkBox'
               >
                 {c.name}
               </Checkbox>
@@ -135,20 +137,22 @@ function HomePage() {
           </div>
         </div>
         <div className="col-md-9">
-           
+
           <h1 className="text-center">All Product</h1>
           <div className="d-flex flex-wrap">
-            {products?.map( (p) => (
-                <div className="card m-3" style={{ width: '18rem'}} key={p._id}>
-                  <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" height={'250px'} alt={p.name} />
-                  <div className="card-body">
-                    <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">{p.description.substring(0, 65)}...</p>
-                    <p className="card-text"> $ {p.price}</p>
-                    <button className='btn btn-primary me-2' onClick={()=> navigate(`product/${p.slug}`)}>More details</button>
-                    <button className=' btn btn-secondary ' >ADD TO CART</button>
-                  </div>
+            {products?.map((p) => (
+              <div className="card m-3" style={{ width: '18rem' }} key={p._id}>
+                <img src={`/api/v1/product/product-photo/${p._id}`} className="card-img-top" height={'250px'} alt={p.name} />
+                <div className="card-body">
+                  <h5 className="card-title">{p.name}</h5>
+                  <p className="card-text">{p.description.substring(0, 65)}...</p>
+                  <p className="card-text"> $ {p.price}</p>
+                  <button className='btn btn-primary me-2' onClick={() => navigate(`product/${p.slug}`)}>More details</button>
+                  <button className=' btn btn-secondary ' onClick={() =>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success('Item Added To Cart')}}
+                  >ADD TO CART
+                  </button>
                 </div>
+              </div>
             ))}
           </div>
           <div className='m-2 p-3'>
@@ -159,7 +163,7 @@ function HomePage() {
                   setPage(page + 1)
                 }}
               >
-                { loading ? "loading..." : "Loadmore"}
+                {loading ? "loading..." : "Loadmore"}
               </button>
             )}
           </div>

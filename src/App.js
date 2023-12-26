@@ -22,6 +22,9 @@ import Products from './pages/Admin/Products.jsx';
 import UpdateProduct from './pages/Admin/UpdateProduct.jsx';
 import Search from './pages/Search.js';
 import ProductDetails from './pages/ProductDetails.js';
+import Categories from './pages/Categories.jsx';
+import CategoryProduct from './pages/CategoryProduct.jsx';
+import CartPage from './pages/CartPage.js';
 
 
 function App() {
@@ -30,8 +33,10 @@ function App() {
 
     <Routes>
       <Route path='/' element={<HomePage />} />
-
       <Route path='/Search' element={<Search />} />
+      <Route path='/categories' element={<Categories />} />
+      <Route path='/cart' element={<CartPage />} />
+      <Route path='/category/:slug' element={<CategoryProduct/>} />
       <Route path='/product/:slug' element={<ProductDetails />} />
       <Route path='/about' element={<About />} />
       <Route path='/contact' element={<Contact />} />
