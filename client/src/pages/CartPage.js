@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from '../components/Layout/Layout.js'
 import { useCart } from '../context/cart.js'
 import { useAuth } from '../context/auth.js'
@@ -8,14 +8,31 @@ function CartPage() {
     const [cart, setCart] = useCart()
     const [auth, setAuth] = useAuth()
     const navigate = useNavigate()
+
+    //Total Price
+    const totalPrice = () => {
+        try {
+            let total = 0;
+            cart?.map((item) => {
+                total = total + JSON.parse(item.price);
+            });
+            return total.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     // Delete item
     const removeCartItem = (pid) => {
         try {
-            let myCart = [ ...cart ];
+            let myCart = [...cart];
             let index = myCart.findIndex((item) => item._id === pid)
-             myCart.splice(index, 1);
-             setCart(myCart)
-            localStorage.setItem('cart',JSON.stringify(myCart))
+            myCart.splice(index, 1);
+            setCart(myCart)
+            localStorage.setItem('cart', JSON.stringify(myCart))
         } catch (error) {
             console.log(error)
         }
@@ -60,7 +77,39 @@ function CartPage() {
                         ))}
                     </div>
                     <div className="col-md-4">
-                        Checkout| Payment
+                        <h2 className="text-center">Cart Summary</h2>
+                        <p className='text-center'>Total| Checkout| Payment</p>
+                        <hr />
+                        <h4>Total : {totalPrice()}</h4>
+                        {auth?.user?.address ? (
+                            <>
+                                <div className="mb-3">
+                                    <h4>Current Address</h4>
+                                    <h5>{auth?.user.address}</h5>
+                                    <button
+                                        className='btn btn-outline-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >Update Address</button>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="mb-3">
+                                {auth?.token ? (
+                                    <button
+                                        className='btn btn-outline-warning'
+                                        onClick={() => navigate('/dashboard/user/profile')}
+                                    >Update Address</button>
+                                ) : (
+                                    <button
+                                        className='btn btn-outline-warning'
+                                        onClick={() => navigate('/login', {
+                                            state: '/cart'
+                                        })}
+                                    >Please Login to checkout</button>
+                                )
+                                }
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

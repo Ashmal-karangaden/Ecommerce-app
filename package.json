@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "npm start --prefix ../client",
+    "client": "npm start --prefix ./client",
     "dev": "concurrently \"npm run server \" \"npm run client\""
   },
   "keywords": [],
@@ -16,6 +16,7 @@
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "bcrypt": "^5.1.0",
+    "braintree": "^3.21.0",
     "colors": "^1.4.0",
     "concurrently": "^8.2.1",
     "cors": "^2.8.5",
