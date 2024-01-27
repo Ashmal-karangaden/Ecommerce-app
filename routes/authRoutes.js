@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerController, loginController, testController, forgotPasswordController, updateProfileController } from "../controllers/authController.js"
+import { registerController, loginController, testController, forgotPasswordController, updateProfileController, getOrdersController } from "../controllers/authController.js"
 import { requireSignIn, isAdmin } from '../middlewares/authMiddleware.js'
 // Router object
 const router = express.Router()
@@ -12,7 +12,7 @@ router.get('/test', requireSignIn, isAdmin, testController)
 router.post('/register', registerController)
 
 //FORGOTPASSWORD || METHODE POST
-router.post('/forgot-password',forgotPasswordController)
+router.post('/forgot-password', forgotPasswordController)
 
 //LOGIN || METHODE POST
 router.post('/login', loginController)
@@ -26,5 +26,8 @@ router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ ok: true });
 });
 //UPDATE PROFILE
-router.put('/profile',requireSignIn,updateProfileController)
+router.put('/profile', requireSignIn, updateProfileController)
+
+// orders
+router.get('/orders', requireSignIn, getOrdersController)
 export default router;
